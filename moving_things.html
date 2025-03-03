@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Animation with JavaScript</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Define the box to be animated */
+        .moving-box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="moving-box"></div>
+
+    <script>
+        // Get the box element
+        let box = document.querySelector('.moving-box');
+        
+        // Initial position of the box
+        let position = 0;
+
+        // Function to animate the box
+        function moveBox() {
+            // Increase the position
+            position += 5;
+            
+            // Move the box to the right by updating the left position
+            box.style.left = position + 'px';
+
+            // If the box moves off the screen, reset its position to the left
+            if (position >= window.innerWidth) {
+                position = 0;
+            }
+        }
+
+        // Call the moveBox function every 10 milliseconds to create an animation effect
+        setInterval(moveBox, 10);
+    </script>
+
+</body>
+</html>

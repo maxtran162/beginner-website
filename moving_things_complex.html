@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Animation with JavaScript</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Ensure the box won't be cut off */
+        }
+
+        /* The animated box */
+        .moving-box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            position: absolute;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="moving-box"></div>
+
+    <script>
+        let box = document.querySelector('.moving-box');
+
+        // Initial position and properties
+        let positionX = -100;  // Start off the screen on the left
+        let positionY = 50;  // Start vertically centered
+        let rotation = 0;
+        let scale = 1;
+        let colorIndex = 0;
+        
+        // Define an array of colors for the box
+        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6'];
+
+        // Function to animate the box with more complex effects
+        function animateBox() {
+            // Update the position (moving the box to the right and downwards)
+            positionX += 3; // Move horizontally
+            positionY += Math.sin(positionX / 100) * 5; // Add vertical wave motion
+            
+            // Rotation effect (rotate the box)
+            rotation += 1;
+
+            // Scale effect (scale the box up and down)
+            scale = 1 + Math.sin(positionX / 50) * 0.5;
+
+            // Change color periodically
+            if (positionX % 150 === 0) {
+                colorIndex = (colorIndex + 1) % colors.length;
+            }
+
+            // Apply the updated styles to the box
+            box.style.left = positionX + 'px';
+            box.style.top = positionY + 'px';
+            box.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+            box.style.backgroundColor = colors[colorIndex];
+
+            // If the box goes off the screen, reset position to create a loop
+            if (positionX > window.innerWidth) {
+                positionX = -100; // Reset to start from left side
+            }
+        }
+
+        // Call the animateBox function every 16ms (about 60 frames per second)
+        setInterval(animateBox, 16);
+    </script>
+
+</body>
+</html>
